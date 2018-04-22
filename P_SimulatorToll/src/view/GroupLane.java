@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -12,9 +13,18 @@ public class GroupLane extends JPanel{
 
 
 	public GroupLane(short cant) {
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setLayout(new GridLayout(cant,1));
+		this.jpStans = new ArrayList<JPLane>();
 		for (int i = 0; i < cant; i++) {
+			jpStans.add(new JPLane());
 			this.add(new JPLane());
+		}
+	}
+	
+	public void refresh(){
+		this.removeAll();
+		for (int i = 0; i < jpStans.size(); i++) {
+			this.add(jpStans.get(i));
 		}
 	}
 
@@ -35,7 +45,17 @@ public class GroupLane extends JPanel{
 		this.cantStands = cantStands;
 	}
 	
+	public byte getSizeStands(){
+		return (byte) jpStans.size();
+	}
 	
+	public byte getSizeVehiclesAtStand(byte index){
+		return jpStans.get(index).sizeLane();
+	}
+	
+	public JPLane getJPLaneIndex(byte index){
+		return jpStans.get(index);
+	}
 	
 
 }

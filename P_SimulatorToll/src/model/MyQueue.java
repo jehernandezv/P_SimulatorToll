@@ -37,6 +37,10 @@ public class MyQueue <T>{
 		return element;
 	}
 	
+	public T copyDequeue(){
+		return head.getData();	
+	}
+	
 	public T front(){
 		T element = null;
 		if(head != null)
@@ -45,7 +49,13 @@ public class MyQueue <T>{
 	}
 	
 	public long size(){
-		return this.size;
+		Node<T> actual = this.head;
+		long cont = 0;
+		while(actual != null){
+			cont ++;
+			actual = actual.getNext();
+		}
+		return cont;
 	}
 	
 	public boolean isEmpty(){
