@@ -1,10 +1,16 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class JPReportStand extends JPanel{
 	private static final long serialVersionUID = 1L;
@@ -13,6 +19,7 @@ public class JPReportStand extends JPanel{
 	jLabelValuePayVan,jLabelCantVehiclesTruck,jLabelValuePayTruck,jLabelTitleStatsGeneral;
 	
 	public JPReportStand(ArrayList<String> arrayValue) {
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		this.setLayout(new GridLayout(7,5));
 		jLabelNumStand = new JLabel(arrayValue.get(0));
 		jLabelTypeVehicle = new JLabel("TypeVehicle");
@@ -27,7 +34,7 @@ public class JPReportStand extends JPanel{
 		jLabelValuePayVan = new JLabel(arrayValue.get(4));
 		jLabelCantVehiclesTruck = new JLabel(arrayValue.get(5));
 		jLabelValuePayTruck = new JLabel(arrayValue.get(6));
-		jLabelTitleStatsGeneral = new JLabel("Stats General");
+		//jLabelTitleStatsGeneral = new JLabel("Stats General");
 		
 		
 		init(arrayValue);
@@ -65,12 +72,6 @@ public class JPReportStand extends JPanel{
 		this.add(new JLabel());
 		this.add(new JLabel());
 		this.add(new JLabel());
-		this.add(new JLabel());
-		this.add(new JLabel());
-		//estadisticas generales fila 7
-		this.add(new JLabel());
-		this.add(new JLabel());
-		this.add(jLabelTitleStatsGeneral);
 		this.add(new JLabel());
 		this.add(new JLabel());
 		

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.time.LocalTime;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -14,8 +15,12 @@ public class JFMainWindow extends JFrame{
 	private JPMenuSimulation jpMenuSimulation;
 	private JDValuesInitSimulation jdValuesInitSimulation;
 	private JLabel jLabelEast,jLabelWest;
+	private ImageIcon icon = new ImageIcon(getClass().getResource("/icon.png"));
+	private static final String NAME_APP = "SIMULATOR TOLL";
 	
 	public JFMainWindow(Controller controller) {
+		this.setTitle(NAME_APP);
+		this.setIconImage(icon.getImage());
 		this.setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(800, 400);
@@ -35,7 +40,7 @@ public class JFMainWindow extends JFrame{
 		this.add(jpMenuSimulation,BorderLayout.CENTER);
 		this.add(jLabelEast, BorderLayout.EAST);
 		this.add(jLabelWest, BorderLayout.WEST);
-		this.add(new JLabel("norte"), BorderLayout.NORTH);
+		this.add(new JLabel(), BorderLayout.NORTH);
 		this.paintAll(this.getGraphics());
 	}
 

@@ -4,20 +4,25 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.time.LocalTime;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import controller.Controller;
 
 
 public class JFSimulatorPeaje extends JFrame{
+	private static final String NAME_APP = "SIMULATOR TOLL";
 	private static final long serialVersionUID = 1L;
 	private GroupLane groupLane;
 	private JPButtonSimulation jpButtonSimulation;
 	private JPLimitSimulation jpLimitSimulation;
+	private ImageIcon icon = new ImageIcon(getClass().getResource("/icon.png"));
 	
 
 
 	public JFSimulatorPeaje(byte cant,Controller controller) {
+		this.setTitle(NAME_APP);
+		this.setIconImage(icon.getImage());
 		this.setSize(400, 400);
 		this.setLayout(new BorderLayout());
 		jpButtonSimulation = new JPButtonSimulation(controller);

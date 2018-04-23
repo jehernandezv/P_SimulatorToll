@@ -22,11 +22,14 @@ public class JPMenuSimulation extends JPanel{
 		jButtonExit = new JButton("Exit");
 		jButtonConfigSimulation.addActionListener(controller);
 		jButtonConfigSimulation.setActionCommand(EAction.CONFIG_SIMULATION.name());
+		jButtonExit.setActionCommand(EAction.EXIT_MAIN_MENU.name());
+		jButtonExit.addActionListener(controller);
 		init();
 		
 	}
 
 	private void init() {
+		
 		customJButton(jButtonConfigSimulation);
 		customJButton(jButtonHelp);
 		customJButton(jButtonExit);

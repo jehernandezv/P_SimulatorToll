@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -22,7 +23,8 @@ import model.Toll;
 import model.TypeVehicle;
 
 public class Controller implements ActionListener{
-
+	private ImageIcon icon = new ImageIcon(getClass().getResource("/icon.png"));
+	private static final String NAME_APP = "SIMULATOR TOLL";
 	private JFSimulatorPeaje jfSimulation;
 	private JFMainWindow jfMainWindow;
 	private Timer timerCreateVehicle, timerMove, timerEliminateVehicleView,timerCronometer;
@@ -81,6 +83,10 @@ public class Controller implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			break;
+			
+		case EXIT_MAIN_MENU:
+			jfMainWindow.dispose();
 			break;
 		default:
 			break;
@@ -235,10 +241,23 @@ public class Controller implements ActionListener{
 	
 	public void showReport(){
 		JFrame frame = new JFrame();
+		frame.setTitle(NAME_APP);
+		frame.setIconImage(icon.getImage());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPReportToll jpReportToll = new JPReportToll((byte) toll.getListStands().size(), generateReport());
+		JPReportToll jpReportToll = new JPReportToll((byte) toll.getListStands().size(), generateReport(),reportGeneral());
 		frame.add(jpReportToll);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
+	}
+	
+	public ArrayList<String> reportGeneral(){
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(""+ toll.getTotalVehiclesPass());
+		list.add("$ "+ toll.dinnerTotalToll());
+		list.add(""+ toll.getVehiclesTypeVehiclePass(TypeVehicle.CAR).size());
+		list.add(""+ toll.getVehiclesTypeVehiclePass(TypeVehicle.VAN).size());
+		list.add(""+ toll.getVehiclesTypeVehiclePass(TypeVehicle.TRUCK).size());
+		return list;
 	}
 
 
