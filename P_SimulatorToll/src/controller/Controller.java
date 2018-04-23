@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalTime;
 import java.util.Random;
 
 import javax.swing.Timer;
@@ -37,7 +38,9 @@ public class Controller implements ActionListener{
 			jfMainWindow.dispouseJFMainWindow();
 			byte cant = jfMainWindow.getCantStand();
 			try {
-				initSimulation(cant);
+				LocalTime after = jfMainWindow.getTimeAfter();
+				LocalTime before = jfMainWindow.getTimeBefore();
+				initSimulation(cant,before,after);
 			} catch (IOException | URISyntaxException e1) {
 				e1.printStackTrace();
 			}
@@ -64,19 +67,28 @@ public class Controller implements ActionListener{
 	
 	public void stopSimulation(){
 		timerMove.stop();
-		timerEliminateVehicleView.stop();
 		timerCreateVehicle.stop();
+		timerEliminateVehicleView.stop();
 		timerCronometer.stop();
 	}
 
 	
-	private void initSimulation(byte cant) throws IOException, URISyntaxException{
-		this.cromometer();
+	private void initSimulation(byte cant,LocalTime before , LocalTime after) throws IOException, URISyntaxException{
 		this.jfSimulation = new JFSimulatorPeaje((byte) cant,this);
 		toll = new Toll((short) cant);
-		if(true){
 		this.randomGenerateVehicle();
 		this.move();
+		this.cromometer(before,after);
+	}
+	
+	private boolean isLimit(LocalTime actual,LocalTime limit){
+		return (actual.isAfter(limit));
+	}
+	
+	private void finalSimulation(boolean flag){
+		if(flag){
+		stopSimulation();
+		jfSimulation.disableSimulation();
 		}
 	}
 	
@@ -115,7 +127,7 @@ public class Controller implements ActionListener{
 								public void actionPerformed(ActionEvent e) {
 										jfSimulation.getGroupLane().getJpStans().get(indexEliminate).getVehiclesLane().get(4).seteStatusJPanel(TypeVehicle.EMPRY);
 										jfSimulation.getJPLaneIndex((byte) indexEliminate).getJpStandLane().setStatus(false);
-										
+										toll.getListStands().get(indexEliminate).passVehicleList();
 								}
 							});
 						timerEliminateVehicleView.start();
@@ -130,11 +142,11 @@ public class Controller implements ActionListener{
 		}
 	}
 	
-	public void cromometer(){
+	public void cromometer(LocalTime before,LocalTime after){
 		timerCronometer = new Timer(1000, new ActionListener() {
-			byte second = 0;
-			byte minute = 0;
-			short hour = 0;
+			byte second = (byte) before.getSecond();
+			byte minute = (byte) before.getMinute();
+			byte hour = (byte) before.getHour();
 			public void actionPerformed(ActionEvent e) {
 				second ++;
 				if(second == 60){
@@ -146,6 +158,8 @@ public class Controller implements ActionListener{
 					minute = 0;
 				}
 				jfSimulation.setTimeJLabel("Hour : " + hour + " Minutes : " + minute + " Second : " + second);
+				 LocalTime actual = LocalTime.of(hour, minute, second);
+				finalSimulation(isLimit(actual, after));
 			}
 		});
 		timerCronometer.start();

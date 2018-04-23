@@ -1,7 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -42,11 +42,15 @@ public class JDValuesInitSimulation extends JDialog{
 			this.setVisible(true);
 		}
 		
-		public LocalDate[] getDates(){
-			return jpEnterDate.getDates();
-		}
-		
 		public byte getCantStand(){
 			return jpEnterDate.getCantStand();
+		}
+		
+		public LocalTime getTimeBefore(){
+			return jpEnterDate.getTimeBefore();
+		}
+		
+		public LocalTime getTimeAfter(){
+			return jpEnterDate.getTimeAfter();
 		}
 }

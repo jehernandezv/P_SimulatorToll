@@ -1,12 +1,10 @@
 package model;
 
-import java.time.LocalDate;
 
 public class Vehicle{
 	private short idVehicle;
 	private TypeVehicle typeVehicle;
 	private String plate;
-	private LocalDate datePass;
 	private double pay;
 	
 	public Vehicle() {
@@ -31,62 +29,24 @@ public class Vehicle{
 		return typeVehicle;
 	}
 
-
-
 	public void setTypeVehicle(TypeVehicle typeVehicle) {
 		this.typeVehicle = typeVehicle;
 	}
-
-
 
 	public String getPlate() {
 		return plate;
 	}
 
-
-
 	public void setPlate(String plate) {
 		this.plate = plate;
 	}
 
-
-
-	public LocalDate getDatePass() {
-		return datePass;
-	}
-
-
-
-	public void setDatePass(LocalDate datePass) {
-		this.datePass = datePass;
-	}
-
-
-
 	public double getPay() {
 		return pay;
 	}
-
-
-
+	
 	public void setPay(double pay) {
 		this.pay = pay;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

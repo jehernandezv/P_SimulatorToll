@@ -40,6 +40,10 @@ public class JFSimulatorPeaje extends JFrame{
 		return groupLane;
 	}
 	 
+	 public void disableSimulation(){
+		 this.dispose();
+	 }
+	 
 	 public void setTimeJLabel(String string){
 			jpButtonSimulation.setTimeJLabel(string);
 		}

@@ -10,7 +10,6 @@ import utilities.StringUtilies;
 
 
 public class Toll {
-	private short idToll;
 	private ArrayList<Stand> listStands;
 	private Random random = new Random();
 	

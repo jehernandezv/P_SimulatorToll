@@ -1,35 +1,28 @@
 package view;
 
 import java.awt.GridLayout;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
+import java.time.LocalTime;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.toedter.calendar.JDateChooser;
-
 public class JPEnterDate extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private final static byte LIMIT_STANDS = 10;
-	private JDateChooser chooserAfter, chooserBefore;
 	private JComboBox<Byte> jComboBoxSizeStands;
 	private JLabel jLabelDateAfter,jLabelDateBefore,jLabelNumLane;
-	
+	private JPEnterTime jpEnterTimeBefore,jpEnterTimeAfter;
 	
 	public JPEnterDate() {
 		this.setLayout(new GridLayout(3,2));
-		chooserAfter = new JDateChooser();
-		chooserBefore = new JDateChooser();
 		jComboBoxSizeStands = new JComboBox<Byte>();
-		jLabelDateAfter = new JLabel("Date After");
-		jLabelDateBefore = new JLabel("Date before");
+		jLabelDateAfter = new JLabel("Time After");
+		jLabelDateBefore = new JLabel("Time before");
 		jLabelNumLane = new JLabel("Cant Lane");
+		jpEnterTimeBefore = new JPEnterTime();
+		jpEnterTimeAfter = new JPEnterTime();
 		generateRangeStand(LIMIT_STANDS);
 		init();
 	}
@@ -37,10 +30,11 @@ public class JPEnterDate extends JPanel{
 	public void init(){
 		this.add(jLabelNumLane);
 		this.add(jComboBoxSizeStands);
-		this.add(jLabelDateAfter);
 		this.add(jLabelDateBefore);
-		this.add(chooserAfter);
-		this.add(chooserBefore);
+		this.add(jLabelDateAfter);
+		this.add(jpEnterTimeBefore);
+		this.add(jpEnterTimeAfter);
+		
 	}
 
 	
@@ -53,24 +47,19 @@ public class JPEnterDate extends JPanel{
 		
 	}
 	
-	public LocalDate[] getDates(){
-		return new LocalDate[] {getDate(chooserAfter),getDate(chooserBefore)};
-	}
-	
-	private LocalDate getDate(JDateChooser chooser){
-		if(chooser.getDate() != null){
-			Date input = chooser.getDate();
-			Instant instant = input.toInstant();
-			ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
-			LocalDate date = zdt.toLocalDate();
-			return date;
-		}
-		return null;
-	}
-	
 	public byte getCantStand(){
 		return (byte)jComboBoxSizeStands.getSelectedItem();
 	}
+	
+	public LocalTime getTimeBefore(){
+		return jpEnterTimeBefore.getTime();
+	}
+	
+	public LocalTime getTimeAfter(){
+		return jpEnterTimeAfter.getTime();
+	}
+	
+	
 	
 	
 }

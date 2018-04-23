@@ -1,7 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,12 +41,16 @@ public class JFMainWindow extends JFrame{
 		this.jdValuesInitSimulation.showDialog();
 	}
 	
-	public LocalDate[] getDates(){
-		return jdValuesInitSimulation.getDates();
-	}
-	
 	public byte getCantStand(){
 		return jdValuesInitSimulation.getCantStand();
+	}
+	
+	public LocalTime getTimeBefore(){
+		return jdValuesInitSimulation.getTimeBefore();
+	}
+	
+	public LocalTime getTimeAfter(){
+		return jdValuesInitSimulation.getTimeAfter();
 	}
 
 }

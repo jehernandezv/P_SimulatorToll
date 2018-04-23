@@ -26,6 +26,10 @@ public class Stand {
 		}
 		return isAdd;
 	}
+	
+	public void passVehicleList(){
+		linkedListVehiclesPass.add(queueGroupVehiclesLane.dequeue());
+	}
 
 	public short getIdStand() {
 		return idStand;
