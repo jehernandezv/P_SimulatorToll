@@ -7,10 +7,13 @@ import java.net.URISyntaxException;
 import java.time.LocalTime;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
+import view.CustomException;
 import view.JFMainWindow;
 import view.JFSimulatorPeaje;
+import view.ValidateDates;
 import model.Toll;
 import model.TypeVehicle;
 
@@ -35,12 +38,18 @@ public class Controller implements ActionListener{
 			jfMainWindow.showDialog();
 			break;
 		case ACCEPT_CONFIG:
-			jfMainWindow.dispouseJFMainWindow();
-			byte cant = jfMainWindow.getCantStand();
+			ValidateDates validateDates = new ValidateDates();
 			try {
-				LocalTime after = jfMainWindow.getTimeAfter();
-				LocalTime before = jfMainWindow.getTimeBefore();
-				initSimulation(cant,before,after);
+				try {
+					validateDates.validateTime(jfMainWindow.getTimeBefore(), jfMainWindow.getTimeAfter());
+					jfMainWindow.dispouseJFMainWindow();
+					byte cant = jfMainWindow.getCantStand();
+					LocalTime after = jfMainWindow.getTimeAfter();
+					LocalTime before = jfMainWindow.getTimeBefore();
+					initSimulation(cant,before,after);
+				} catch (CustomException | NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR DE VALIDACION", JOptionPane.WARNING_MESSAGE);
+				}
 			} catch (IOException | URISyntaxException e1) {
 				e1.printStackTrace();
 			}

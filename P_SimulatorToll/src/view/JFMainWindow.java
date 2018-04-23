@@ -52,5 +52,9 @@ public class JFMainWindow extends JFrame{
 	public LocalTime getTimeAfter(){
 		return jdValuesInitSimulation.getTimeAfter();
 	}
+	
+	public boolean validateDates(){
+		return jdValuesInitSimulation.validateDates();
+	}
 
 }

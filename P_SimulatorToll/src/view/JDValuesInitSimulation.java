@@ -53,4 +53,8 @@ public class JDValuesInitSimulation extends JDialog{
 		public LocalTime getTimeAfter(){
 			return jpEnterDate.getTimeAfter();
 		}
+		
+		public boolean validateDates(){
+			return jpEnterDate.validateDates();
+		}
 }

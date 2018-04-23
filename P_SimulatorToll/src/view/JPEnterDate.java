@@ -47,6 +47,10 @@ public class JPEnterDate extends JPanel{
 		
 	}
 	
+	public boolean validateDates(){
+		return (getTimeBefore().compareTo(getTimeAfter())) < 0;
+	}
+	
 	public byte getCantStand(){
 		return (byte)jComboBoxSizeStands.getSelectedItem();
 	}
