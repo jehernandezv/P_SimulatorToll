@@ -10,15 +10,18 @@ public class JPLane extends JPanel {
 	private short idLane;
 	private byte numVehiclesLane;
 	private ArrayList<JPanelDrawVehicle> jPanelsLand;
+	private JPStandLane jpStandLane;
 	
 	public JPLane() {
 		this.idLane = 8;
-		this.setLayout(new GridLayout(1,5));
+		this.setLayout(new GridLayout(1,6));
+		jpStandLane = new JPStandLane();
 		jPanelsLand = new ArrayList<JPanelDrawVehicle>();
 		for (int i = 0; i < 5; i++) {
 			jPanelsLand.add(new JPanelDrawVehicle());
 			this.add(jPanelsLand.get(i));
 		}
+		this.add(jpStandLane);
 	}
 
 	public void addVehicleLand(TypeVehicle typeVehicle){
@@ -58,5 +61,15 @@ public class JPLane extends JPanel {
 	public void setTipeVehicleAtJpanel(byte index,TypeVehicle typeVehicle){
 		jPanelsLand.get(index).seteStatusJPanel(typeVehicle);
 	}
+
+	public JPStandLane getJpStandLane() {
+		return jpStandLane;
+	}
+
+	public void setJpStandLane(JPStandLane jpStandLane) {
+		this.jpStandLane = jpStandLane;
+	}
+	
+	
 	
 }

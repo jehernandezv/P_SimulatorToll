@@ -2,17 +2,16 @@ package view;
 
 import java.awt.GridLayout;
 import java.util.ArrayList;
-
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+
+import controller.Controller;
 
 public class GroupLane extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private ArrayList<JPLane> jpStans;
 	private short cantStands;
-
-
-	public GroupLane(short cant) {
+	
+	public GroupLane(short cant,Controller controller) {
 		this.setLayout(new GridLayout(cant,1));
 		this.jpStans = new ArrayList<JPLane>();
 		for (int i = 0; i < cant; i++) {

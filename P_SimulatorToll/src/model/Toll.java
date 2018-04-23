@@ -25,7 +25,6 @@ public class Toll {
 	
 	public void addVehiclesStandRandom() throws IOException, URISyntaxException{
 		this.listStands.get(random.nextInt(listStands.size())).addVehicleTail(createVehicle());
-		
 	}
 	
 	public Vehicle createVehicle() throws IOException, URISyntaxException{
