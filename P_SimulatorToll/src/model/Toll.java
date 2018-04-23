@@ -21,7 +21,6 @@ public class Toll {
 		}
 	}
 	
-	
 	public void addVehiclesStandRandom() throws IOException, URISyntaxException{
 		this.listStands.get(random.nextInt(listStands.size())).addVehicleTail(createVehicle());
 	}
@@ -34,6 +33,44 @@ public class Toll {
 		
 		return vehicle;
 	}
+	//=============================== Reporte ==========================================
+	//General
+	public long getTotalVehiclesPass(){
+		long numVehicles = 0;
+		for (int i = 0; i < listStands.size(); i++) {
+			numVehicles += listStands.get(i).getLinkedListVehiclesPass().size();
+		}
+		return numVehicles;
+	}
+	//General
+	public MyLinkedList<Vehicle> getVehiclesTypeVehiclePass(TypeVehicle typeVehicle){
+		MyLinkedList<Vehicle> linkedListType = new MyLinkedList<Vehicle>();
+		for (int i = 0; i < listStands.size(); i++) {
+			for (int j = 0; j < listStands.get(i).getLinkedListVehiclesPass().size(); j++) {
+				if(listStands.get(i).getLinkedListVehiclesPass().elementAt(j).getTypeVehicle().equals(typeVehicle));
+				linkedListType.add(listStands.get(i).getLinkedListVehiclesPass().elementAt(j));
+			}
+		}
+		return linkedListType;
+	}
+	//general
+	public double payVehiclesOfTypeVehicles(TypeVehicle typeVehicle){
+		double payVehicles = 0;
+		MyLinkedList<Vehicle> listVehicles = getVehiclesTypeVehiclePass(typeVehicle);
+		for (int i = 0; i < listVehicles.size(); i++) {
+			payVehicles += listVehicles.elementAt(i).getPay();
+		}
+		return payVehicles;
+	}
+	//General
+	public double dinnerTotalToll(){
+		double sale = 0;
+		for (int i = 0; i < listStands.size(); i++) {
+			sale += listStands.get(i).totalSaleStand();
+		}
+		return sale;
+	}
+	
 	
 	public ArrayList<Stand> getListStands(){
 		return listStands;

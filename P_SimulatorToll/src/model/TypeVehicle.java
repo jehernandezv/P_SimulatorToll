@@ -2,9 +2,9 @@ package model;
 
 public enum TypeVehicle {
 	
-	VAN(45,65.2f),
-	TRUCK(78,45.8f),
-	CAR(23,2.8F),
+	VAN(35900,65.2f),
+	TRUCK(78300,45.8f),
+	CAR(22500,2.8F),
 	EMPRY(0,0f);
 	
 	private final int value;

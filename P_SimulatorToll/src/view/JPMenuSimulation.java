@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -25,9 +27,23 @@ public class JPMenuSimulation extends JPanel{
 	}
 
 	private void init() {
+		customJButton(jButtonConfigSimulation);
+		customJButton(jButtonHelp);
+		customJButton(jButtonExit);
+		
 		this.add(jButtonConfigSimulation);
 		this.add(jButtonHelp);
 		this.add(jButtonExit);
+	}
+	
+	public void customJButton(JButton button){
+		button.setOpaque(true);
+		button.setFocusable(false);
+		button.setBorderPainted(true);
+		//button.setContentAreaFilled(false);
+		button.setForeground(Color.WHITE);
+		button.setFont(new Font("Arial", Font.BOLD, 25));
+		button.setBackground(Color.decode("#91DC5A"));
 	}
 
 }

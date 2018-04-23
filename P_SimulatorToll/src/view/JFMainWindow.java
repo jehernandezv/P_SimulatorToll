@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.time.LocalTime;
 
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ public class JFMainWindow extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPMenuSimulation jpMenuSimulation;
 	private JDValuesInitSimulation jdValuesInitSimulation;
+	private JLabel jLabelEast,jLabelWest;
 	
 	public JFMainWindow(Controller controller) {
 		this.setLayout(new BorderLayout());
@@ -20,15 +22,21 @@ public class JFMainWindow extends JFrame{
 		//this.setExtendedState(MAXIMIZED_BOTH);
 		jpMenuSimulation = new JPMenuSimulation(controller);
 		jdValuesInitSimulation = new JDValuesInitSimulation(controller);
+		jLabelEast = new JLabel("           ");
+		jLabelWest = new JLabel("           ");
 		this.setVisible(true);
 		init();
 	}
 	
 	private void init() {
+		jLabelEast.setBackground(Color.decode("#91DC5A"));
+		jLabelWest.setBackground(Color.decode("#91DC5A"));
+		
 		this.add(jpMenuSimulation,BorderLayout.CENTER);
-		this.add(new JLabel("aaaaaaaa"), BorderLayout.EAST);
-		this.add(new JLabel("bbbbbbbb"), BorderLayout.WEST);
+		this.add(jLabelEast, BorderLayout.EAST);
+		this.add(jLabelWest, BorderLayout.WEST);
 		this.add(new JLabel("norte"), BorderLayout.NORTH);
+		this.paintAll(this.getGraphics());
 	}
 
 	public void dispouseJFMainWindow(){

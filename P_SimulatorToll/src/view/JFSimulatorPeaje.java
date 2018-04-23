@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.time.LocalTime;
 
 import javax.swing.JFrame;
 
@@ -12,6 +13,7 @@ public class JFSimulatorPeaje extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private GroupLane groupLane;
 	private JPButtonSimulation jpButtonSimulation;
+	private JPLimitSimulation jpLimitSimulation;
 	
 
 
@@ -19,6 +21,7 @@ public class JFSimulatorPeaje extends JFrame{
 		this.setSize(400, 400);
 		this.setLayout(new BorderLayout());
 		jpButtonSimulation = new JPButtonSimulation(controller);
+		jpLimitSimulation = new JPLimitSimulation();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setBackground(Color.WHITE);
@@ -30,6 +33,7 @@ public class JFSimulatorPeaje extends JFrame{
 	public void init() {
 		this.add(jpButtonSimulation, BorderLayout.NORTH);
 		this.add(this.groupLane, BorderLayout.CENTER);
+		this.add(jpLimitSimulation, BorderLayout.SOUTH);
 	}
 	
 	public void refresh(){
@@ -43,6 +47,10 @@ public class JFSimulatorPeaje extends JFrame{
 	 public void disableSimulation(){
 		 this.dispose();
 	 }
+	 
+	 public void sentValuesJPLimitSimulationBefore(LocalTime before,LocalTime after){
+			jpLimitSimulation.sentValuesJPLimitSimulationBefore(before, after);
+		}
 	 
 	 public void setTimeJLabel(String string){
 			jpButtonSimulation.setTimeJLabel(string);

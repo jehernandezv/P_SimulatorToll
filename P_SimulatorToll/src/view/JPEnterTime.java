@@ -2,9 +2,11 @@ package view;
 
 import java.awt.FlowLayout;
 import java.time.LocalTime;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class JPEnterTime extends JPanel{
 
@@ -24,6 +26,21 @@ public class JPEnterTime extends JPanel{
 	}
 
 	private void init() {
+		SpinnerNumberModel modelHour = new SpinnerNumberModel();
+		modelHour.setMaximum(23);
+		modelHour.setMinimum(0);
+		jSpinnerHour.setModel(modelHour);
+		
+		SpinnerNumberModel modelMinute = new SpinnerNumberModel();
+		modelMinute.setMaximum(60);
+		modelMinute.setMinimum(0);
+		jSpinnerMinute.setModel(modelMinute);
+		
+		SpinnerNumberModel modelSecond = new SpinnerNumberModel();
+		modelSecond.setMaximum(60);
+		modelSecond.setMinimum(0);
+		jSpinnerSecond.setModel(modelSecond);
+		
 		add(jLabelHour);
 		add(jSpinnerHour);
 		add(jLabelMinute);

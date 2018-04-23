@@ -5,14 +5,18 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import view.CustomException;
 import view.JFMainWindow;
 import view.JFSimulatorPeaje;
+import view.JPReportStand;
+import view.JPReportToll;
 import view.ValidateDates;
 import model.Toll;
 import model.TypeVehicle;
@@ -23,7 +27,11 @@ public class Controller implements ActionListener{
 	private JFMainWindow jfMainWindow;
 	private Timer timerCreateVehicle, timerMove, timerEliminateVehicleView,timerCronometer;
 	private Random random = new Random();
-	private final static int SPEED_CREATE_VEHICLE = 7000;
+	private  int SPEED_CREATE_VEHICLE = 7000;
+	private  int SPEED_MOVE = 1000;
+	private  int SPEED_ELIMINATE_VIEW = 500;
+	private  int SPEED_TIMER_CRONOMETER = 1000;
+	
 	private Toll toll;
 	private byte indexEliminate;
 
@@ -47,6 +55,7 @@ public class Controller implements ActionListener{
 					LocalTime after = jfMainWindow.getTimeAfter();
 					LocalTime before = jfMainWindow.getTimeBefore();
 					initSimulation(cant,before,after);
+					jfSimulation.sentValuesJPLimitSimulationBefore(before,after);
 				} catch (CustomException | NullPointerException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "ERROR DE VALIDACION", JOptionPane.WARNING_MESSAGE);
 				}
@@ -61,6 +70,17 @@ public class Controller implements ActionListener{
 			
 		case JBUTTON_RESUME_SIMULATION:
 			resumeSimulation();
+			break;
+		case JBUTTON_STEP_SIMULATION:
+			byte cant = jfMainWindow.getCantStand();
+			LocalTime after = jfMainWindow.getTimeAfter();
+			LocalTime before = jfMainWindow.getTimeBefore();
+			try {
+				this.stepSimulation(cant,before,after);
+			} catch (IOException | URISyntaxException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		default:
 			break;
@@ -94,9 +114,19 @@ public class Controller implements ActionListener{
 		return (actual.isAfter(limit));
 	}
 	
+	private void stepSimulation(byte cant,LocalTime before,LocalTime after) throws IOException, URISyntaxException{
+		this.SPEED_CREATE_VEHICLE = 60;
+		this.SPEED_MOVE = 10;
+		this.SPEED_TIMER_CRONOMETER = 10;
+		this.SPEED_ELIMINATE_VIEW = 3;
+		this.jfSimulation.disableSimulation();
+		this.initSimulation(cant, before, after);
+	}
+	
 	private void finalSimulation(boolean flag){
 		if(flag){
 		stopSimulation();
+		showReport();
 		jfSimulation.disableSimulation();
 		}
 	}
@@ -132,11 +162,11 @@ public class Controller implements ActionListener{
 				if (!jfSimulation.getJPLaneIndex((byte) k).getTypeVehicle((byte) 4).equals(TypeVehicle.EMPRY)) {
 					jfSimulation.getJPLaneIndex((byte) k).getJpStandLane().setStatus(true);
 					indexEliminate = (byte) k;
-					timerEliminateVehicleView = new Timer(500,new ActionListener() {
+					timerEliminateVehicleView = new Timer(SPEED_ELIMINATE_VIEW,new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
+										toll.getListStands().get(indexEliminate).pay();
 										jfSimulation.getGroupLane().getJpStans().get(indexEliminate).getVehiclesLane().get(4).seteStatusJPanel(TypeVehicle.EMPRY);
 										jfSimulation.getJPLaneIndex((byte) indexEliminate).getJpStandLane().setStatus(false);
-										toll.getListStands().get(indexEliminate).passVehicleList();
 								}
 							});
 						timerEliminateVehicleView.start();
@@ -152,7 +182,7 @@ public class Controller implements ActionListener{
 	}
 	
 	public void cromometer(LocalTime before,LocalTime after){
-		timerCronometer = new Timer(1000, new ActionListener() {
+		timerCronometer = new Timer(SPEED_TIMER_CRONOMETER, new ActionListener() {
 			byte second = (byte) before.getSecond();
 			byte minute = (byte) before.getMinute();
 			byte hour = (byte) before.getHour();
@@ -175,7 +205,7 @@ public class Controller implements ActionListener{
 	}
 
 	public void move() {
-		timerMove = new Timer(1000, new ActionListener() {
+		timerMove = new Timer(SPEED_MOVE, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				moveVehicle();
 				jfSimulation.refresh();
@@ -184,6 +214,31 @@ public class Controller implements ActionListener{
 			}
 		});
 		timerMove.start();
+	}
+	
+	public ArrayList<JPReportStand> generateReport(){
+		ArrayList<JPReportStand> reportStands = new ArrayList<JPReportStand>();	
+		for (int i = 0; i < toll.getListStands().size(); i++) {
+			ArrayList<String> listStats = new ArrayList<String>();
+			listStats.add("Stand Nº "+(i + 1));
+			listStats.add(""+toll.getListStands().get(i).numVehicleOfTypeCar());
+			listStats.add("$ " + (Integer.parseInt(listStats.get(1)) * TypeVehicle.CAR.getValue()));
+			listStats.add("" + toll.getListStands().get(i).numVehicleOfTypeVan());
+			listStats.add("$ " + (Integer.parseInt(listStats.get(3)) * TypeVehicle.VAN.getValue()));
+			listStats.add("" + toll.getListStands().get(i).numVehicleOfTypeTruck());
+			listStats.add("$ " + (Integer.parseInt(listStats.get(5)) * TypeVehicle.TRUCK.getValue()));
+			reportStands.add(new JPReportStand(listStats));
+			}
+		 
+		return reportStands;
+		}
+	
+	public void showReport(){
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPReportToll jpReportToll = new JPReportToll((byte) toll.getListStands().size(), generateReport());
+		frame.add(jpReportToll);
+		frame.setVisible(true);
 	}
 
 

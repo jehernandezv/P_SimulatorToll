@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.time.LocalTime;
 
@@ -28,13 +30,22 @@ public class JPEnterDate extends JPanel{
 	}
 	
 	public void init(){
+		setCustomJLabel(jLabelDateAfter);
+		setCustomJLabel(jLabelDateBefore);
+		setCustomJLabel(jLabelNumLane);
+		
 		this.add(jLabelNumLane);
 		this.add(jComboBoxSizeStands);
 		this.add(jLabelDateBefore);
-		this.add(jLabelDateAfter);
 		this.add(jpEnterTimeBefore);
+		this.add(jLabelDateAfter);
 		this.add(jpEnterTimeAfter);
-		
+	}
+	public void setCustomJLabel(JLabel jlabel){
+		jlabel.setForeground(Color.WHITE);
+		jlabel.setFont(new Font("Arial", Font.BOLD,35));
+		jlabel.setBackground(Color.decode("#91DC5A"));
+		jlabel.setOpaque(true);
 	}
 
 	

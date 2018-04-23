@@ -38,7 +38,12 @@ public class MyQueue <T>{
 	}
 	
 	public T copyDequeue(){
-		return head.getData();	
+		T data = null;
+		if(head != null){
+			data = this.head.getData();
+		}
+		return data;	
+		
 	}
 	
 	public T front(){

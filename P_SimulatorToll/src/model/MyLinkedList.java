@@ -10,7 +10,13 @@ public class MyLinkedList <T>{
 	}
 	
 	public long size(){
-		return size;
+		Node<T> actual = this.head;
+		long cont = 0;
+		while(actual != null){
+			cont ++;
+			actual = actual.getNext();
+		}
+		return cont;
 	}
 	
 	public void add(T data){

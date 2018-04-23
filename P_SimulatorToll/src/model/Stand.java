@@ -27,12 +27,66 @@ public class Stand {
 		return isAdd;
 	}
 	
-	public void passVehicleList(){
-		linkedListVehiclesPass.add(queueGroupVehiclesLane.dequeue());
+	public long getNumVehiclesPass(){
+		return linkedListVehiclesPass.size();
 	}
 
 	public short getIdStand() {
 		return idStand;
+	}
+	
+	public double totalSaleStand(){
+		double sale = 0;
+		for (int i = 0; i < linkedListVehiclesPass.size(); i++) {
+			sale += linkedListVehiclesPass.elementAt(i).getPay();
+		}
+		return sale;
+	}
+	
+	public double pay(){
+		double pay = 0;
+		Vehicle vehicle = queueGroupVehiclesLane.copyDequeue();
+		if(vehicle != null){
+			if(vehicle.getTypeVehicle().equals(TypeVehicle.CAR)){
+				pay = vehicle.getTypeVehicle().getValue();
+			}else if(vehicle.getTypeVehicle().equals(TypeVehicle.VAN)){
+				pay = vehicle.getTypeVehicle().getValue();
+			}else{
+				pay = vehicle.getTypeVehicle().getValue();
+			}
+			vehicle.setPay(pay);
+			queueGroupVehiclesLane.dequeue();
+			linkedListVehiclesPass.add(vehicle);
+		}
+		return pay;
+	}
+	
+	public long numVehicleOfTypeCar(){
+		long cont = 0;
+		for (int i = 0; i < linkedListVehiclesPass.size(); i++) {
+		if(linkedListVehiclesPass.elementAt(i).getTypeVehicle().equals(TypeVehicle.CAR)){
+			cont ++;
+		}
+	 }
+		return cont;
+	}
+	public long numVehicleOfTypeVan(){
+		long cont = 0;
+		for (int i = 0; i < linkedListVehiclesPass.size(); i++) {
+		if(linkedListVehiclesPass.elementAt(i).getTypeVehicle().equals(TypeVehicle.VAN)){
+			cont ++;
+		}
+	 }
+		return cont;
+	}
+	public long numVehicleOfTypeTruck(){
+		long cont = 0;
+		for (int i = 0; i < linkedListVehiclesPass.size(); i++) {
+		if(linkedListVehiclesPass.elementAt(i).getTypeVehicle().equals(TypeVehicle.TRUCK)){
+			cont ++;
+		}
+	 }
+		return cont;
 	}
 
 
@@ -56,22 +110,8 @@ public class Stand {
 	}
 
 
-	public void setLinkedListVehiclesPass(
-			MyLinkedList<Vehicle> linkedListVehiclesPass) {
+	public void setLinkedListVehiclesPass(MyLinkedList<Vehicle> linkedListVehiclesPass) {
 		this.linkedListVehiclesPass = linkedListVehiclesPass;
 	}
-	
-	
-	
-
-	
-
-	
-
-
-	
-
-	
-	
 	
 }
