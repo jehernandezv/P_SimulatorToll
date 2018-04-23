@@ -254,9 +254,9 @@ public class Controller implements ActionListener{
 		ArrayList<String> list = new ArrayList<String>();
 		list.add(""+ toll.getTotalVehiclesPass());
 		list.add("$ "+ toll.dinnerTotalToll());
-		list.add(""+ toll.getVehiclesTypeVehiclePass(TypeVehicle.CAR).size());
-		list.add(""+ toll.getVehiclesTypeVehiclePass(TypeVehicle.VAN).size());
-		list.add(""+ toll.getVehiclesTypeVehiclePass(TypeVehicle.TRUCK).size());
+		list.add(""+ toll.getCantvehiclesCar());
+		list.add(""+ toll.getCantvehiclesVan());
+		list.add(""+ toll.getCantvehiclesTruck());
 		return list;
 	}
 

@@ -38,7 +38,8 @@ public class JPEnterTime extends JPanel{
 		
 		SpinnerNumberModel modelSecond = new SpinnerNumberModel();
 		modelSecond.setMaximum(60);
-		modelSecond.setMinimum(0);
+		modelSecond.setMinimum(15);
+		modelSecond.setValue(15);
 		jSpinnerSecond.setModel(modelSecond);
 		
 		add(jLabelHour);

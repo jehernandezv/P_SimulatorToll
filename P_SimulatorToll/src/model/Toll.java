@@ -53,6 +53,30 @@ public class Toll {
 		}
 		return linkedListType;
 	}
+	
+	public long getCantvehiclesCar(){
+		long cant = 0;
+		for (int i = 0; i < listStands.size(); i++) {
+			cant += listStands.get(i).numVehicleOfTypeCar();
+		}
+		return cant;
+	}
+	
+	public long getCantvehiclesVan(){
+		long cant = 0;
+		for (int i = 0; i < listStands.size(); i++) {
+			cant += listStands.get(i).numVehicleOfTypeVan();
+		}
+		return cant;
+	}
+	
+	public long getCantvehiclesTruck(){
+		long cant = 0;
+		for (int i = 0; i < listStands.size(); i++) {
+			cant += listStands.get(i).numVehicleOfTypeTruck();
+		}
+		return cant;
+	}
 	//general
 	public double payVehiclesOfTypeVehicles(TypeVehicle typeVehicle){
 		double payVehicles = 0;
