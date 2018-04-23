@@ -6,6 +6,7 @@ import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.Controller;
@@ -15,6 +16,7 @@ public class JPButtonSimulation extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JButton jButtonPauseSimulation, jButtonStepSimulation, jButtonResumeSimulation;
+	private JLabel jLabelTimeSimulation;
 	
 	public JPButtonSimulation(Controller controller) {
 		this.setLayout(new FlowLayout());
@@ -22,6 +24,7 @@ public class JPButtonSimulation extends JPanel{
 		jButtonPauseSimulation = new JButton("Pause");
 		jButtonStepSimulation = new JButton("Step Simulation");
 		jButtonResumeSimulation = new JButton("Resume Simulation");
+		jLabelTimeSimulation = new JLabel();
 		jButtonStepSimulation.addActionListener(controller);
 		jButtonPauseSimulation.addActionListener(controller);
 		jButtonResumeSimulation.addActionListener(controller);
@@ -52,9 +55,12 @@ public class JPButtonSimulation extends JPanel{
 		jButtonResumeSimulation.setIcon(image1);
 		jButtonResumeSimulation.setRolloverIcon(image2);
 		customJButton(jButtonResumeSimulation);
+		
+		jLabelTimeSimulation.setForeground(Color.WHITE);
+		jLabelTimeSimulation.setFont(new Font("Arial", Font.BOLD, 25));
 
 		
-		
+		this.add(jLabelTimeSimulation);
 		this.add(jButtonResumeSimulation);
 		this.add(jButtonPauseSimulation);
 		this.add(jButtonStepSimulation);
@@ -68,6 +74,10 @@ public class JPButtonSimulation extends JPanel{
 		button.setContentAreaFilled(false);
 		button.setForeground(Color.WHITE);
 		button.setFont(new Font("Arial", Font.BOLD, 25));
+	}
+	
+	public void setTimeJLabel(String string){
+		this.jLabelTimeSimulation.setText("Time: " + string);
 	}
 
 }

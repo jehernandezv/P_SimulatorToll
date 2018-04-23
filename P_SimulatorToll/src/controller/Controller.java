@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Random;
+
 import javax.swing.Timer;
+
 import view.JFMainWindow;
 import view.JFSimulatorPeaje;
 import model.Toll;
@@ -15,7 +17,7 @@ public class Controller implements ActionListener{
 
 	private JFSimulatorPeaje jfSimulation;
 	private JFMainWindow jfMainWindow;
-	private Timer timerCreateVehicle, timerMove, timerEliminateVehicleView;
+	private Timer timerCreateVehicle, timerMove, timerEliminateVehicleView,timerCronometer;
 	private Random random = new Random();
 	private final static int SPEED_CREATE_VEHICLE = 7000;
 	private Toll toll;
@@ -57,16 +59,19 @@ public class Controller implements ActionListener{
 		timerMove.start();
 		timerEliminateVehicleView.start();
 		timerCreateVehicle.start();
+		timerCronometer.start();
 	}
 	
 	public void stopSimulation(){
 		timerMove.stop();
 		timerEliminateVehicleView.stop();
 		timerCreateVehicle.stop();
+		timerCronometer.stop();
 	}
 
 	
 	private void initSimulation(byte cant) throws IOException, URISyntaxException{
+		this.cromometer();
 		this.jfSimulation = new JFSimulatorPeaje((byte) cant,this);
 		toll = new Toll((short) cant);
 		if(true){
@@ -110,6 +115,7 @@ public class Controller implements ActionListener{
 								public void actionPerformed(ActionEvent e) {
 										jfSimulation.getGroupLane().getJpStans().get(indexEliminate).getVehiclesLane().get(4).seteStatusJPanel(TypeVehicle.EMPRY);
 										jfSimulation.getJPLaneIndex((byte) indexEliminate).getJpStandLane().setStatus(false);
+										
 								}
 							});
 						timerEliminateVehicleView.start();
@@ -122,6 +128,27 @@ public class Controller implements ActionListener{
 				}
 			}
 		}
+	}
+	
+	public void cromometer(){
+		timerCronometer = new Timer(1000, new ActionListener() {
+			byte second = 0;
+			byte minute = 0;
+			short hour = 0;
+			public void actionPerformed(ActionEvent e) {
+				second ++;
+				if(second == 60){
+					minute ++;
+					second = 0;
+				}
+				if(minute == 60){
+					hour++;
+					minute = 0;
+				}
+				jfSimulation.setTimeJLabel("Hour : " + hour + " Minutes : " + minute + " Second : " + second);
+			}
+		});
+		timerCronometer.start();
 	}
 
 	public void move() {

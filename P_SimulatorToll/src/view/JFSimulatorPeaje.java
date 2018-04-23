@@ -2,7 +2,9 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import javax.swing.JFrame;
+
 import controller.Controller;
 
 
@@ -37,6 +39,10 @@ public class JFSimulatorPeaje extends JFrame{
 	 public GroupLane getGroupLane() {
 		return groupLane;
 	}
+	 
+	 public void setTimeJLabel(String string){
+			jpButtonSimulation.setTimeJLabel(string);
+		}
 
 	public void setGroupLane(GroupLane groupLane) {
 		this.groupLane = groupLane;
